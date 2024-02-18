@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,12 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/a/dashboard', function () {
-    return view('dashboard.admin.index');
-})->middleware(['auth', 'verified'])->name('a.dashboard');
+// admin routes
+Route::group([], function () {
+    Route::get('/a/dashboard', [AdministratorController::class, 'index'])->middleware(['auth', 'verified'])->name('a.dashboard');
+
+    Route::get('/a/dashboard/students/add-student', [AdministratorController::class, 'addStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.add-student');
+});
 
 Route::get('/s/dashboard', function () {
     return view('dashboard.student.index');

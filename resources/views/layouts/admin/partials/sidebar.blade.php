@@ -6,6 +6,7 @@ $url_path = ltrim($url_path, '/');
 
 // Split the path into an array
 $path_array = explode('/', $url_path);
+
 @endphp
 
 <aside id="logo-sidebar"
@@ -19,14 +20,14 @@ $path_array = explode('/', $url_path);
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('a.dashboard') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-200  group {{ $path_array[0] === 'dashboard' ? 'bg-gray-200' : '' }}">
+                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-200 group {{ in_array('dashboard', $path_array) && count(array_intersect(['students', 'other_segment'], $path_array)) === 0 ? 'bg-gray-200' : '' }}">
                     <i class="text-xl fa-solid fa-chart-pie"></i>
                     <span class="ms-3">Dashboard</span>
                 </a>
             </li>
             <li>
                 <button type="button"
-                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 "
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 {{ array_search('students',$path_array) ? 'bg-gray-200' : '' }}"
                     aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
                     <i class="fa-solid fa-users"></i>
                     <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Students</span>
@@ -38,8 +39,9 @@ $path_array = explode('/', $url_path);
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 ">Add
+                        <a href="{{ route('a.dashboard.add-student') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('students',$path_array) ? "
+                            bg-gray-200" : "" }}">Add
                             new student</a>
                     </li>
                 </ul>
