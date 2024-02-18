@@ -19,9 +19,13 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/a/dashboard', function () {
+    return view('dashboard.admin.index');
+})->middleware(['auth', 'verified'])->name('a.dashboard');
+
+Route::get('/s/dashboard', function () {
+    return view('dashboard.student.index');
+})->middleware(['auth', 'verified'])->name('s.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

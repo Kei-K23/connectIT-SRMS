@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,11 +27,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
+        $user = User::where('email', $request->email)->first();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $isAuthUser = Hash::check($request->password, $user->password);
+
+        if ($isAuthUser) {
+            $request->authenticate();
+
+            $request->session()->regenerate();
+            if ($user->administrator) {
+                return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+            } elseif ($user->student) {
+                return redirect()->intended(RouteServiceProvider::STUDENT_HOME);
+            }
+        }
     }
 
     /**

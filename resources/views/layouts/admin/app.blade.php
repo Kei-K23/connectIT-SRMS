@@ -32,7 +32,7 @@
             </svg>
         </button>
 
-        @include('layouts.partials.sidebar')
+        @include('layouts.admin.partials.sidebar')
 
         <main>
             {{ $slot }}
