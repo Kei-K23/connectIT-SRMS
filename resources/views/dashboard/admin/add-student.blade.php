@@ -1,7 +1,7 @@
 <x-admin-layout>
     <div class="p-4 sm:ml-64">
         <div class="py-4">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto shadow-md sm:rounded-lg">
                 <div class="py-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <h2 class="mb-5 text-xl font-bold text-center">Register new student</h2>
                     @if(session('success'))

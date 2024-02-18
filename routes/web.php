@@ -25,7 +25,10 @@ Route::group([], function () {
     Route::get('/a/dashboard', [AdministratorController::class, 'index'])->middleware(['auth', 'verified'])->name('a.dashboard');
 
     Route::get('/a/dashboard/students/add-student', [AdministratorController::class, 'addStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.add-student');
+
     Route::post('/a/dashboard/students/add-student', [AdministratorController::class, 'addStudentStore'])->middleware(['auth', 'verified'])->name('a.dashboard.add-student.store');
+
+    Route::get('/a/dashboard/students/manage-student', [AdministratorController::class, 'manageStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-student');
 });
 
 Route::get('/s/dashboard', function () {

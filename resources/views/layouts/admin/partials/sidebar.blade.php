@@ -39,8 +39,13 @@ $path_array = explode('/', $url_path);
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
+                        <a href="{{ route('a.dashboard.manage-student') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('manage-student',$path_array) ? "
+                            bg-gray-200" : "" }}">Manage students</a>
+                    </li>
+                    <li>
                         <a href="{{ route('a.dashboard.add-student') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('students',$path_array) ? "
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('add-student',$path_array) ? "
                             bg-gray-200" : "" }}">Add
                             new student</a>
                     </li>

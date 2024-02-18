@@ -1,7 +1,7 @@
 <x-admin-layout>
     <div class="p-4 sm:ml-64">
         <div class="py-4">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="mx-auto shadow-md sm:rounded-lg">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         @php
