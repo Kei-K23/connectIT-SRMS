@@ -2,6 +2,11 @@
     <div class="p-4 sm:ml-64">
         <div class="py-4">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                @if(session('success'))
+                <div class="max-w-md p-4 mx-auto mb-4 text-sm text-green-800 rounded-lg bg-green-50 " role="alert">
+                    <span class="font-medium">{{ session('success') }}</span>
+                </div>
+                @endif
                 <div
                     class="flex flex-wrap items-center justify-between py-4 space-y-4 bg-white flex-column md:flex-row md:space-y-0 ">
 
@@ -63,11 +68,19 @@
                             <td class="px-6 py-4 text-base">
                                 {{ $studentsWithUser->user->created_at->diffForHumans() }}
                             </td>
-                            <td class="px-6 py-4 text-base">
+                            <td class="flex items-center gap-2 px-6 py-4 text-base">
                                 <!-- Modal toggle -->
                                 <a href="#" type="button" data-modal-target="editUserModal"
                                     data-modal-show="editUserModal"
                                     class="font-medium text-blue-600 hover:underline">Edit user</a>
+                                <form action="{{ route('a.dashboard.manage-student.delete', ['studentId' => $studentsWithUser->id]) }}
+                                    " method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        class="font-medium text-rose-600 hover:underline">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

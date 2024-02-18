@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\View\View;
 use Illuminate\Validation\Rules;
 
@@ -60,19 +57,24 @@ class AdministratorController extends Controller
             ->get();
 
         // Get the column names for the 'users' table
-        $columns = Schema::getColumnListing('users');
-
-
+        // $columns = Schema::getColumnListing('users');
         // Columns to exclude
+        //! Must implement dynamically get columns names
         $columnsToExclude = ['id', 'name', 'email', 'phone_number', 'address', 'created_at'];
-
-        // Filter out the columns to exclude
-        $filteredColumns = array_diff($columnsToExclude, $columns);
-
 
         return view('dashboard.admin.manage-student', [
             'studentsWithUsers' => $studentsWithUsers,
             'columns' => $columnsToExclude
         ]);
+    }
+
+    public function manageStudentDelete(Request $request, $studentId): RedirectResponse
+    {
+        $user = User::find($studentId);
+
+        $user->student->delete();
+        $user->delete();
+
+        return back()->with('success', 'Student Deleted Successfully');
     }
 }

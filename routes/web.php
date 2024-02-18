@@ -28,7 +28,10 @@ Route::group([], function () {
 
     Route::post('/a/dashboard/students/add-student', [AdministratorController::class, 'addStudentStore'])->middleware(['auth', 'verified'])->name('a.dashboard.add-student.store');
 
+
     Route::get('/a/dashboard/students/manage-student', [AdministratorController::class, 'manageStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-student');
+
+    Route::delete('/a/dashboard/students/manage-student/delete/{studentId}', [AdministratorController::class, 'manageStudentDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-student.delete');
 });
 
 Route::get('/s/dashboard', function () {
