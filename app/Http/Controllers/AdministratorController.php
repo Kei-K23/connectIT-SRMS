@@ -96,4 +96,15 @@ class AdministratorController extends Controller
 
         return back()->with('success', 'Student Deleted Successfully');
     }
+
+    public function resetPassword(Request $request, $studentId): RedirectResponse
+    {
+        // Find the user by ID
+        $user = User::findOrFail($studentId);
+        // Update the user's password
+        $user->password = Hash::make('password');
+        $user->save();
+        // Redirect back with success message
+        return back()->with('success', 'Password updated successfully.');
+    }
 }

@@ -73,8 +73,16 @@
                                 <a href="#" type="button" data-modal-target="editUserModal"
                                     data-modal-show="editUserModal"
                                     class="font-medium text-blue-600 hover:underline">Edit user</a>
-                                <form action="{{ route('a.dashboard.manage-student.delete', ['studentId' => $studentsWithUser->id]) }}
+                                <form action="{{ route('a.dashboard.reset-password', ['studentId' => $studentsWithUser->id]) }}
                                     " method="POST">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <button type="submit" class="font-medium text-green-500 hover:underline">Reset
+                                        password</button>
+                                </form>
+                                <form action="{{ route('a.dashboard.manage-student.delete', ['studentId' => $studentsWithUser->id]) }}
+                                                                    " method="POST">
                                     @csrf
                                     @method('DELETE')
 
@@ -114,24 +122,34 @@
                             <div class="p-6 space-y-6">
                                 <div class="w-full">
                                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
-                                    <input type="text" name="name" id="name"
+                                    <input value="{{ old('name') }}" type="text" name="name" id="name"
                                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                                         placeholder="Name" required>
+                                    @error('name')
+                                    <span class="text-red-500">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
                                     <label for="phone_number"
                                         class="block mb-2 text-sm font-medium text-gray-900 ">Phone
                                         number</label>
-                                    <input type="text" name="phone_number" id="phone_number"
+                                    <input value="{{ old('phone_number') }}" type="tel" pattern="09-[0-9]{9}"
+                                        name="phone_number" id="phone_number"
                                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                                         placeholder="Phone number" required>
+                                    @error('phone_number')
+                                    <span class="text-red-500">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
                                     <label for="address"
                                         class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
-                                    <input type="text" name="address" id="address"
+                                    <input value="{{ old('address') }}" type="text" name="address" id="address"
                                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                                         placeholder="Address" required>
+                                    @error('address')
+                                    <span class="text-red-500">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <input type="hidden" name="studentId" id="studentId">
@@ -154,10 +172,8 @@
                     // Handle click event for "Edit user" link
                     $('a[data-modal-show="editUserModal"]').click(function(e) {
                         e.preventDefault(); // Prevent default link behavior
-
                         // Get the parent <tr> element
                         const $tr = $(this).closest('tr');
-
                         // Get user data from the <tr> element
                         const userId = $tr.find('td:eq(0)').text().trim();
                         const userName = $tr.find('td:eq(1)').text().trim();
