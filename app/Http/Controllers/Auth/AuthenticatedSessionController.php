@@ -30,17 +30,24 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        if (!$user) {
+            return redirect()->back()->withErrors(['email' => __('auth.failed')]);
+        }
+
         $isAuthUser = Hash::check($request->password, $user->password);
 
         if ($isAuthUser) {
             $request->authenticate();
 
             $request->session()->regenerate();
+
             if ($user->administrator) {
                 return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
             } elseif ($user->student) {
                 return redirect()->intended(RouteServiceProvider::STUDENT_HOME);
             }
+        } else {
+            return redirect()->back()->withErrors(['password' => __('auth.failed')]);
         }
     }
 
