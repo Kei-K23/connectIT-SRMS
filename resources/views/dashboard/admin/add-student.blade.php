@@ -5,8 +5,9 @@
                 <div class="py-6 overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <h2 class="mb-5 text-xl font-bold text-center">Register new student</h2>
                     @if(session('success'))
-                    <div class="max-w-md p-4 mx-auto mb-4 text-sm text-green-800 rounded-lg bg-green-50 " role="alert">
-                        <span class="font-medium">{{ session('success') }}</span>
+                    <div class="max-w-md p-4 mx-auto mb-4 text-sm text-center text-green-800 rounded-lg bg-green-50"
+                        role="alert">
+                        <span class="font-medium text-center">{{ session('success') }}</span>
                     </div>
                     @endif
                     <form class="max-w-md mx-auto" method="POST" action="{{ route('a.dashboard.add-student.store') }}

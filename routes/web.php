@@ -28,6 +28,7 @@ Route::group([], function () {
 
     Route::post('/a/dashboard/students/add-student', [AdministratorController::class, 'addStudentStore'])->middleware(['auth', 'verified'])->name('a.dashboard.add-student.store');
 
+    Route::put('/a/dashboard/students/update-student/{studentId}', [AdministratorController::class, 'updateStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.update-student.update');
 
     Route::get('/a/dashboard/students/manage-student', [AdministratorController::class, 'manageStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-student');
 

@@ -77,4 +77,23 @@ class AdministratorController extends Controller
 
         return back()->with('success', 'Student Deleted Successfully');
     }
+
+    public function updateStudent(Request $request, $studentId): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required'],
+            'address' => ['required'],
+        ]);
+
+        $user = User::find($studentId);
+
+        $user->update([
+            'name' => $request->name,
+            'phone_number' => $request->phone_number,
+            'address' => $request->address,
+        ]);
+
+        return back()->with('success', 'Student Deleted Successfully');
+    }
 }
