@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Section;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -26,6 +27,14 @@ class AdministratorController extends Controller
     public function addCourse(): View
     {
         return view('dashboard.admin.add-course');
+    }
+
+    public function addSection(): View
+    {
+        $courses = Course::all();
+
+
+        return view('dashboard.admin.add-section', ['courses' => $courses]);
     }
 
     public function addStudentStore(Request $request): RedirectResponse
@@ -75,6 +84,28 @@ class AdministratorController extends Controller
         return back()->with('success', 'Course added Successfully');
     }
 
+    public function addSectionStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'start_date' => ['required', 'string'],
+            'end_date' => ['required', 'string'],
+            'course_id' => ['required'],
+        ]);
+
+        Section::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'course_id' => $request->course_id,
+        ]);
+
+        return back()->with('success', 'Section added Successfully');
+    }
+
+
     public function  manageStudent(): View
     {
         $studentsWithUsers = Student::with('user')
@@ -113,6 +144,19 @@ class AdministratorController extends Controller
         ]);
     }
 
+    public function  manageSection(): View
+    {
+
+        $sections = Section::orderBy('created_at', 'desc')->get();
+
+        $columnsToExclude = ['id', 'name', 'description', 'start_date', 'end_date', 'created_at'];
+
+        return view('dashboard.admin.manage-section', [
+            'columns' => $columnsToExclude,
+            'sections' => $sections
+        ]);
+    }
+
     public function manageStudentDelete(Request $request, $studentId): RedirectResponse
     {
         $user = User::find($studentId);
@@ -132,6 +176,14 @@ class AdministratorController extends Controller
         return back()->with('success', 'Course deleted Successfully');
     }
 
+    public function manageSectionDelete(Request $request, $sectionId): RedirectResponse
+    {
+        $section = Section::where('id', $sectionId)->first();
+
+        $section->delete();
+
+        return back()->with('success', 'Section deleted Successfully');
+    }
 
     public function updateStudent(Request $request, $studentId): RedirectResponse
     {
@@ -171,6 +223,27 @@ class AdministratorController extends Controller
         ]);
 
         return back()->with('success', 'Course updated Successfully');
+    }
+
+    public function updateSection(Request $request, $sectionId): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'start_date' => ['required', 'string'],
+            'end_date' => ['required', 'string'],
+        ]);
+
+        $section = Section::where('id', $sectionId)->first();;
+
+        $section->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        return back()->with('success', 'Section updated Successfully');
     }
 
     public function resetPassword(Request $request, $studentId): RedirectResponse
