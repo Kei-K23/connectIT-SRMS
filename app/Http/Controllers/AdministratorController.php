@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -20,6 +21,11 @@ class AdministratorController extends Controller
     public function addStudent(): View
     {
         return view('dashboard.admin.add-student');
+    }
+
+    public function addCourse(): View
+    {
+        return view('dashboard.admin.add-course');
     }
 
     public function addStudentStore(Request $request): RedirectResponse
@@ -49,6 +55,26 @@ class AdministratorController extends Controller
         return back()->with('success', 'Student Added Successfully');
     }
 
+
+    public function addCourseStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'duration' => ['required', 'string', 'max:255'],
+            'fee' => ['required', 'numeric'],
+        ]);
+
+        Course::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'duration' => $request->duration,
+            'fee' => $request->fee,
+        ]);
+
+        return back()->with('success', 'Course Added Successfully');
+    }
+
     public function  manageStudent(): View
     {
         $studentsWithUsers = Student::with('user')
@@ -66,6 +92,22 @@ class AdministratorController extends Controller
             'studentsWithUsers' => $studentsWithUsers,
             'columns' => $columnsToExclude
         ]);
+    }
+
+    public function  manageCourse(): View
+    {
+        // $studentsWithUsers = Student::with('user')
+        //     ->join('users', 'students.user_id', '=', 'users.id')
+        //     ->orderBy('users.created_at', 'desc')
+        //     ->get();
+
+        // // Get the column names for the 'users' table
+        // // $columns = Schema::getColumnListing('users');
+        // // Columns to exclude
+        // //! Must implement dynamically get columns names
+        // $columnsToExclude = ['id', 'name', 'email', 'phone_number', 'address', 'created_at'];
+
+        return view('dashboard.admin.manage-course');
     }
 
     public function manageStudentDelete(Request $request, $studentId): RedirectResponse
