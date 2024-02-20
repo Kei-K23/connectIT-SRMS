@@ -30,9 +30,15 @@
 
                         <tr>
                             @foreach ($columns as $col)
+                            @if ($col === 'fee')
+                            <th scope="col" class="px-6 py-3">
+                                {{ $col }} ($)
+                            </th>
+                            @else
                             <th scope="col" class="px-6 py-3">
                                 {{ $col }}
                             </th>
+                            @endif
                             @endforeach
                             <th scope="col" class="px-6 py-3">
                                 Action
@@ -40,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($studentsWithUsers as $studentsWithUser)
+                        @foreach ($courses as $course)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             {{-- <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap ">
                                 <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg"
@@ -51,38 +57,31 @@
                                 </div>
                             </th> --}}
                             <td class="px-6 py-4 text-base">
-                                {{ $studentsWithUser->id }}
+                                {{ $course->id }}
                             </td>
                             <td class="px-6 py-4 text-base">
-                                {{ $studentsWithUser->user->name }}
+                                {{ $course->name }}
                             </td>
                             <td class="px-6 py-4 text-base">
-                                {{ $studentsWithUser->user->email }}
+                                {{ $course->duration }}
                             </td>
                             <td class="px-6 py-4 text-base">
-                                {{ $studentsWithUser->user->phone_number }}
+                                {{ $course->description }}
                             </td>
                             <td class="px-6 py-4 text-base">
-                                {{ $studentsWithUser->user->address }}
+                                {{ $course->fee }}
                             </td>
                             <td class="px-6 py-4 text-base">
-                                {{ $studentsWithUser->user->created_at->diffForHumans() }}
+                                {{ $course->created_at->diffForHumans() }}
                             </td>
                             <td class="flex items-center gap-2 px-6 py-4 text-base">
                                 <!-- Modal toggle -->
                                 <a href="#" type="button" data-modal-target="editUserModal"
                                     data-modal-show="editUserModal"
-                                    class="font-medium text-blue-600 hover:underline">Edit user</a>
-                                <form action="{{ route('a.dashboard.reset-password', ['studentId' => $studentsWithUser->id]) }}
-                                    " method="POST">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <button type="submit" class="font-medium text-green-500 hover:underline">Reset
-                                        password</button>
-                                </form>
-                                <form action="{{ route('a.dashboard.manage-student.delete', ['studentId' => $studentsWithUser->id]) }}
-                                                                    " method="POST">
+                                    class="font-medium text-blue-600 hover:underline">Edit</a>
+                                <form
+                                    action="{{ route('a.dashboard.manage-course.delete', ['courseId' => $course->id]) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
 
@@ -105,7 +104,7 @@
                             <!-- Modal header -->
                             <div class="flex items-start justify-between p-4 border-b rounded-t ">
                                 <h3 class="text-xl font-semibold text-gray-900 ">
-                                    Edit user
+                                    Edit course
                                 </h3>
                                 <button type="button"
                                     class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:text-white"
@@ -130,29 +129,44 @@
                                     @enderror
                                 </div>
                                 <div class="w-full">
-                                    <label for="phone_number"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">Phone
-                                        number</label>
-                                    <input value="{{ old('phone_number') }}" type="tel" pattern="09-[0-9]{9}"
-                                        name="phone_number" id="phone_number"
-                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
-                                        placeholder="Phone number" required>
-                                    @error('phone_number')
+                                    <label for="duration"
+                                        class="block mb-2 text-sm font-medium text-gray-900">Duration</label>
+                                    <select id="duration" name="duration"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                        @for ($d = 1; $d <= 12; $d++) <option value="{{ $d }} months" {{
+                                            old('duration')=="$d months" ? 'selected' : '' }}>{{ $d }}
+                                            months
+                                            </option>
+                                            @endfor
+                                    </select>
+                                    @error('duration')
                                     <span class="text-red-500">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
-                                    <label for="address"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">Address</label>
-                                    <input value="{{ old('address') }}" type="text" name="address" id="address"
+                                    <label for="description"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+                                    <input value="{{ old('description') }}" type="text" name="description"
+                                        id="description"
                                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
-                                        placeholder="Address" required>
-                                    @error('address')
+                                        placeholder="Description" required>
+                                    @error('description')
+                                    <span class="text-red-500">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="w-full">
+                                    <label for="fee" class="block mb-2 text-sm font-medium text-gray-900 ">Fee
+                                        ($)</label>
+                                    <input value="{{ old('fee') }}" type="text" name="fee" id="fee"
+                                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
+                                        placeholder="Fee" required>
+                                    @error('fee')
                                     <span class="text-red-500">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            <input type="hidden" name="studentId" id="studentId">
+                            <input type="hidden" name="courseId" id="courseId">
                             <!-- Modal footer -->
                             <div
                                 class="flex items-center p-6 space-x-3 border-t border-gray-200 rounded-b rtl:space-x-reverse ">
@@ -175,16 +189,18 @@
                         // Get the parent <tr> element
                         const $tr = $(this).closest('tr');
                         // Get user data from the <tr> element
-                        const userId = $tr.find('td:eq(0)').text().trim();
-                        const userName = $tr.find('td:eq(1)').text().trim();
-                        const userPhoneNumber = $tr.find('td:eq(3)').text().trim();
-                        const userAddress = $tr.find('td:eq(4)').text().trim();
+                        const id = $tr.find('td:eq(0)').text().trim();
+                        const name = $tr.find('td:eq(1)').text().trim();
+                        const duration = $tr.find('td:eq(2)').text().trim();
+                        const description = $tr.find('td:eq(3)').text().trim();
+                        const fee = $tr.find('td:eq(4)').text().trim();
 
                         // Set values in the modal form
-                        $('#name').val(userName);
-                        $('#phone_number').val(userPhoneNumber);
-                        $('#address').val(userAddress);
-                        $('#studentId').val(userId);
+                        $('#name').val(name);
+                        $('#duration').val(duration);
+                        $('#description').val(description);
+                        $('#fee').val(fee);
+                        $('#courseId').val(id);
 
                         // Display the modal
                         $('#editUserModal').show();
@@ -192,8 +208,8 @@
 
                     // Handle form submission
                     $('#editUserModal form').submit(function(e) {
-                        const studentId = $('#studentId').val();;
-                        e.currentTarget.action = `http://127.0.0.1:8000/a/dashboard/students/update-student/${studentId}`
+                        const courseId = $('#courseId').val();
+                        e.currentTarget.action = `http://127.0.0.1:8000/a/dashboard/courses/update-course/${courseId}`
                     });
 
                     // Handle click event for closing the modal

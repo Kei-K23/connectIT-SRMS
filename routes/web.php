@@ -34,6 +34,10 @@ Route::group([], function () {
 
     Route::put('/a/dashboard/students/update-student/{studentId}', [AdministratorController::class, 'updateStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.update-student.update');
 
+
+    Route::put('/a/dashboard/courses/update-course/{courseId}', [AdministratorController::class, 'updateCourse'])->middleware(['auth', 'verified'])->name('a.dashboard.update-course.update');
+
+
     Route::put('/a/dashboard/students/reset-password/{studentId}', [AdministratorController::class, 'resetPassword'])->middleware(['auth', 'verified'])->name('a.dashboard.reset-password');
 
     Route::get('/a/dashboard/students/manage-student', [AdministratorController::class, 'manageStudent'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-student');
@@ -41,6 +45,8 @@ Route::group([], function () {
     Route::get('/a/dashboard/courses/manage-course', [AdministratorController::class, 'manageCourse'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-course');
 
     Route::delete('/a/dashboard/students/manage-student/delete/{studentId}', [AdministratorController::class, 'manageStudentDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-student.delete');
+
+    Route::delete('/a/dashboard/courses/manage-course/delete/{courseId}', [AdministratorController::class, 'manageCourseDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-course.delete');
 });
 
 Route::get('/s/dashboard', function () {

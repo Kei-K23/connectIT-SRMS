@@ -52,7 +52,7 @@ class AdministratorController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Student Added Successfully');
+        return back()->with('success', 'Student added Successfully');
     }
 
 
@@ -72,7 +72,7 @@ class AdministratorController extends Controller
             'fee' => $request->fee,
         ]);
 
-        return back()->with('success', 'Course Added Successfully');
+        return back()->with('success', 'Course added Successfully');
     }
 
     public function  manageStudent(): View
@@ -100,14 +100,17 @@ class AdministratorController extends Controller
         //     ->join('users', 'students.user_id', '=', 'users.id')
         //     ->orderBy('users.created_at', 'desc')
         //     ->get();
-
+        $courses = Course::orderBy('created_at', 'desc')->get();
         // // Get the column names for the 'users' table
         // // $columns = Schema::getColumnListing('users');
         // // Columns to exclude
         // //! Must implement dynamically get columns names
-        // $columnsToExclude = ['id', 'name', 'email', 'phone_number', 'address', 'created_at'];
+        $columnsToExclude = ['id', 'name', 'duration', 'description', 'fee', 'created_at'];
 
-        return view('dashboard.admin.manage-course');
+        return view('dashboard.admin.manage-course', [
+            'columns' => $columnsToExclude,
+            'courses' => $courses
+        ]);
     }
 
     public function manageStudentDelete(Request $request, $studentId): RedirectResponse
@@ -117,8 +120,18 @@ class AdministratorController extends Controller
         $user->student->delete();
         $user->delete();
 
-        return back()->with('success', 'Student Deleted Successfully');
+        return back()->with('success', 'Student deleted Successfully');
     }
+
+    public function manageCourseDelete(Request $request, $courseId): RedirectResponse
+    {
+        $course = Course::where('id', $courseId)->first();
+
+        $course->delete();
+
+        return back()->with('success', 'Course deleted Successfully');
+    }
+
 
     public function updateStudent(Request $request, $studentId): RedirectResponse
     {
@@ -136,7 +149,28 @@ class AdministratorController extends Controller
             'address' => $request->address,
         ]);
 
-        return back()->with('success', 'Student Deleted Successfully');
+        return back()->with('success', 'Student updated Successfully');
+    }
+
+    public function updateCourse(Request $request, $courseId): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'duration' => ['required', 'string', 'max:255'],
+            'fee' => ['required', 'numeric'],
+        ]);
+
+        $course = Course::where('id', $courseId)->first();;
+
+        $course->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'duration' => $request->duration,
+            'fee' => $request->fee,
+        ]);
+
+        return back()->with('success', 'Course updated Successfully');
     }
 
     public function resetPassword(Request $request, $studentId): RedirectResponse
