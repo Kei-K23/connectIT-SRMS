@@ -81,7 +81,7 @@ $path_array = explode('/', $url_path);
             <li>
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 {{ array_search('students',$path_array) ? 'bg-gray-200' : '' }}"
-                    aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                    aria-controls="student-dropdown" data-collapse-toggle="student-dropdown">
                     <i class="fa-solid fa-users"></i>
                     <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Students</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -90,7 +90,7 @@ $path_array = explode('/', $url_path);
                             d="m1 1 4 4 4-4" />
                     </svg>
                 </button>
-                <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                <ul id="student-dropdown" class="hidden py-2 space-y-2">
                     <li>
                         <a href="{{ route('a.dashboard.manage-student') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('manage-student',$path_array) ? "
@@ -101,6 +101,33 @@ $path_array = explode('/', $url_path);
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('add-student',$path_array) ? "
                             bg-gray-200" : "" }}">Add
                             new student</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 {{ array_search('reports',$path_array) ? 'bg-gray-200' : '' }}"
+                    aria-controls="report-dropdown" data-collapse-toggle="report-dropdown">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Reports</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="report-dropdown" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('a.dashboard.manage-report') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('manage-report',$path_array) ? "
+                            bg-gray-200" : "" }}">Manage reports</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('a.dashboard.add-report') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-200 {{array_search('add-report',$path_array) ? "
+                            bg-gray-200" : "" }}">Add
+                            new report</a>
                     </li>
                 </ul>
             </li>

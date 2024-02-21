@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Report;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\User;
@@ -36,10 +37,15 @@ class AdministratorController extends Controller
     public function addSection(): View
     {
         $courses = Course::all();
-
-
         return view('dashboard.admin.add-section', ['courses' => $courses]);
     }
+
+    public function addReport(): View
+    {
+        $students = Student::all();
+        return view('dashboard.admin.add-report', ['students' => $students]);
+    }
+
 
     public function addStudentStore(Request $request): RedirectResponse
     {
@@ -107,6 +113,27 @@ class AdministratorController extends Controller
         ]);
 
         return back()->with('success', 'Section added Successfully');
+    }
+
+    public function addReportStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'mark' => ['required', 'numeric'],
+            'status' => ['required', 'string', 'max:255'],
+            'student_id' => ['required'],
+        ]);
+
+        Report::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'mark' => $request->mark,
+            'status' => $request->status,
+            'student_id' => $request->student_id,
+        ]);
+
+        return back()->with('success', 'Report added Successfully');
     }
 
 

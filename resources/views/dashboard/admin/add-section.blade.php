@@ -71,7 +71,7 @@
                                     $course->name }}</option>
                                 @endforeach
                             </select>
-                            @error('duration')
+                            @error('course_id')
                             <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>

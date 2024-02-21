@@ -67,6 +67,20 @@ Route::group([], function () {
 
         Route::delete('/a/dashboard/sections/manage-section/delete/{sectionId}', [AdministratorController::class, 'manageSectionDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-section.delete');
     });
+
+    // admin dashboard - report routes
+    Route::group([], function () {
+
+        Route::get('/a/dashboard/reports/add-report', [AdministratorController::class, 'addReport'])->middleware(['auth', 'verified'])->name('a.dashboard.add-report');
+
+        Route::post('/a/dashboard/reports/add-report', [AdministratorController::class, 'addReportStore'])->middleware(['auth', 'verified'])->name('a.dashboard.add-report.store');
+
+        Route::put('/a/dashboard/reports/update-report/{reportId}', [AdministratorController::class, 'updateReport'])->middleware(['auth', 'verified'])->name('a.dashboard.update-report.update');
+
+        Route::get('/a/dashboard/reports/manage-report', [AdministratorController::class, 'manageReport'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-report');
+
+        Route::delete('/a/dashboard/reports/manage-report/delete/{reportId}', [AdministratorController::class, 'manageReportDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-report.delete');
+    });
 });
 
 Route::get('/s/dashboard', function () {
