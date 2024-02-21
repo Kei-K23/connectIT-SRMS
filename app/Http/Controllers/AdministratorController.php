@@ -190,6 +190,20 @@ class AdministratorController extends Controller
         ]);
     }
 
+    public function  manageReport(): View
+    {
+
+        $reports = Report::orderBy('created_at', 'desc')->get();
+
+        $columnsToExclude = ['id', 'name', 'description', 'mark', 'status', 'student_name', 'created_at'];
+
+        return view('dashboard.admin.manage-report', [
+            'columns' => $columnsToExclude,
+            'reports' => $reports
+        ]);
+    }
+
+
     public function manageStudentDelete(Request $request, $studentId): RedirectResponse
     {
         $user = User::find($studentId);
@@ -216,6 +230,15 @@ class AdministratorController extends Controller
         $section->delete();
 
         return back()->with('success', 'Section deleted Successfully');
+    }
+
+    public function manageReportDelete(Request $request, $reportId): RedirectResponse
+    {
+        $report = Report::where('id', $reportId)->first();
+
+        $report->delete();
+
+        return back()->with('success', 'Report deleted Successfully');
     }
 
     public function updateStudent(Request $request, $studentId): RedirectResponse
@@ -284,6 +307,27 @@ class AdministratorController extends Controller
         ]);
 
         return back()->with('success', 'Section updated Successfully');
+    }
+
+    public function updateReport(Request $request, $reportId): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'mark' => ['required', 'numeric'],
+            'status' => ['required', 'string', 'max:255'],
+        ]);
+
+        $report = Report::where('id', $reportId)->first();;
+
+        $report->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'mark' => $request->mark,
+            'status' => $request->status,
+        ]);
+
+        return back()->with('success', 'Report updated Successfully');
     }
 
     public function resetPassword(Request $request, $studentId): RedirectResponse
