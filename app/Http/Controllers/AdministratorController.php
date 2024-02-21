@@ -122,10 +122,12 @@ class AdministratorController extends Controller
         // Columns to exclude
         //! Must implement dynamically get columns names
         $columnsToExclude = ['id', 'name', 'email', 'phone_number', 'address', 'section_name', 'created_at'];
+        $sections = Section::all();
 
         return view('dashboard.admin.manage-student', [
             'studentsWithUsers' => $studentsWithUsers,
-            'columns' => $columnsToExclude
+            'columns' => $columnsToExclude,
+            'sections' => $sections
         ]);
     }
 
@@ -153,7 +155,7 @@ class AdministratorController extends Controller
 
         $sections = Section::orderBy('created_at', 'desc')->get();
 
-        $columnsToExclude = ['id', 'name', 'description', 'course_name', 'start_date', 'end_date', 'created_at'];
+        $columnsToExclude = ['id', 'name', 'description', 'course_name', 'start_date', 'end_date', 'total_students', 'created_at'];
 
         return view('dashboard.admin.manage-section', [
             'columns' => $columnsToExclude,
@@ -195,6 +197,7 @@ class AdministratorController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required'],
             'address' => ['required'],
+            'section_id' => ['required'],
         ]);
 
         $user = User::find($studentId);
@@ -204,6 +207,12 @@ class AdministratorController extends Controller
             'phone_number' => $request->phone_number,
             'address' => $request->address,
         ]);
+
+        if (isset($request->section_id)) {
+            $user->student->update([
+                'section_id' => $request->section_id,
+            ]);
+        }
 
         return back()->with('success', 'Student updated Successfully');
     }

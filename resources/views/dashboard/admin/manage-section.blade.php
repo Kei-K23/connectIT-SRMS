@@ -61,6 +61,9 @@
                                 {{ $section->end_date }}
                             </td>
                             <td class="px-6 py-4 text-base">
+                                {{ $section->students->count() ?? "..." }}
+                            </td>
+                            <td class="px-6 py-4 text-base">
                                 {{ $section->created_at->diffForHumans() }}
                             </td>
                             <td class="flex items-center gap-2 px-6 py-4 text-base">
