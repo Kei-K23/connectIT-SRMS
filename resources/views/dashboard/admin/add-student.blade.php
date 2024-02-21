@@ -77,8 +77,21 @@
                             @enderror
                         </div>
 
+                        <div class="w-full">
+                            <label for="section_id" class="block mb-2 text-sm font-medium text-gray-900">Section</label>
+                            <select id="section_id" name="section_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                @foreach ($sections as $section)
+                                <option {{ old('section_id')==$section->id ? 'selected' : '' }}
+                                    value="{{$section->id}}">{{
+                                    $section->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('duration')
+                            <span class="text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                        <input type="hidden" name="type" value="student" />
                         <button type="submit"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
                     </form>

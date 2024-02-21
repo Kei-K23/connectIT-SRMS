@@ -52,6 +52,9 @@
                                 {{ $section->description ?? "..." }}
                             </td>
                             <td class="px-6 py-4 text-base">
+                                {{ $section->course->name ?? "..." }}
+                            </td>
+                            <td class="px-6 py-4 text-base">
                                 {{ $section->start_date }}
                             </td>
                             <td class="px-6 py-4 text-base">

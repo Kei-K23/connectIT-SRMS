@@ -21,7 +21,11 @@ class AdministratorController extends Controller
 
     public function addStudent(): View
     {
-        return view('dashboard.admin.add-student');
+        $sections = Section::all();
+
+        return view('dashboard.admin.add-student', [
+            'sections' => $sections
+        ]);
     }
 
     public function addCourse(): View
@@ -39,11 +43,13 @@ class AdministratorController extends Controller
 
     public function addStudentStore(Request $request): RedirectResponse
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required'],
             'address' => ['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'section_id' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -55,11 +61,9 @@ class AdministratorController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if ($request->type) {
-            Student::create([
-                'user_id' => $user->id,
-            ]);
-        }
+        Student::create([
+            'user_id' => $user->id, 'section_id' => $request->section_id,
+        ]);
 
         return back()->with('success', 'Student added Successfully');
     }
@@ -117,7 +121,7 @@ class AdministratorController extends Controller
         // $columns = Schema::getColumnListing('users');
         // Columns to exclude
         //! Must implement dynamically get columns names
-        $columnsToExclude = ['id', 'name', 'email', 'phone_number', 'address', 'created_at'];
+        $columnsToExclude = ['id', 'name', 'email', 'phone_number', 'address', 'section_name', 'created_at'];
 
         return view('dashboard.admin.manage-student', [
             'studentsWithUsers' => $studentsWithUsers,
@@ -149,7 +153,7 @@ class AdministratorController extends Controller
 
         $sections = Section::orderBy('created_at', 'desc')->get();
 
-        $columnsToExclude = ['id', 'name', 'description', 'start_date', 'end_date', 'created_at'];
+        $columnsToExclude = ['id', 'name', 'description', 'course_name', 'start_date', 'end_date', 'created_at'];
 
         return view('dashboard.admin.manage-section', [
             'columns' => $columnsToExclude,
