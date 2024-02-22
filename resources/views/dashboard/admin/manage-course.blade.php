@@ -20,9 +20,11 @@
                                     stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input type="text" id="table-search-users"
-                            class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                            placeholder="Search for users">
+                        <form>
+                            <input name="search" type="text" name="search" id="table-search-users"
+                                class="block pt-2 text-sm text-gray-900 border border-gray-300 rounded-lg ps-10 w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                                placeholder="Search for course">
+                        </form>
                     </div>
                 </div>
                 <table class="w-full text-sm text-left rtl:text-right ">
@@ -93,6 +95,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div>
+                    {{ $courses->links() }}
+                </div>
                 <!-- Edit user modal -->
                 <div id="editUserModal" tabindex="-1" aria-hidden="true"
                     class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full h-full p-4 overflow-x-hidden overflow-y-auto bg-black/40">

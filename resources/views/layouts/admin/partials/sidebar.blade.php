@@ -109,7 +109,7 @@ $path_array = explode('/', $url_path);
                 <button type="button"
                     class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-200 {{ array_search('reports',$path_array) ? 'bg-gray-200' : '' }}"
                     aria-controls="report-dropdown" data-collapse-toggle="report-dropdown">
-                    <i class="fa-solid fa-users"></i>
+                    <i class="fa-solid fa-square-poll-horizontal"></i>
                     <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Reports</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 10 6">

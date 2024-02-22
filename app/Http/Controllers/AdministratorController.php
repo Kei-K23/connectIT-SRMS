@@ -137,12 +137,12 @@ class AdministratorController extends Controller
     }
 
 
-    public function  manageStudent(): View
+    public function  manageStudent(Request $request): View
     {
         $studentsWithUsers = Student::with('user')
             ->join('users', 'students.user_id', '=', 'users.id')
-            ->orderBy('users.created_at', 'desc')
-            ->get();
+            ->filter($request->query())
+            ->paginate(10);
 
         // Get the column names for the 'users' table
         // $columns = Schema::getColumnListing('users');
@@ -158,18 +158,20 @@ class AdministratorController extends Controller
         ]);
     }
 
-    public function  manageCourse(): View
+    public function  manageCourse(Request $request): View
     {
         // $studentsWithUsers = Student::with('user')
         //     ->join('users', 'students.user_id', '=', 'users.id')
         //     ->orderBy('users.created_at', 'desc')
         //     ->get();
-        $courses = Course::orderBy('created_at', 'desc')->get();
         // // Get the column names for the 'users' table
         // // $columns = Schema::getColumnListing('users');
         // // Columns to exclude
         // //! Must implement dynamically get columns names
         $columnsToExclude = ['id', 'name', 'duration', 'description', 'fee', 'created_at'];
+
+        $courses = Course::latest()->filter($request->query())->paginate(10);
+
 
         return view('dashboard.admin.manage-course', [
             'columns' => $columnsToExclude,
@@ -177,10 +179,10 @@ class AdministratorController extends Controller
         ]);
     }
 
-    public function  manageSection(): View
+    public function  manageSection(Request $request): View
     {
 
-        $sections = Section::orderBy('created_at', 'desc')->get();
+        $sections = Section::latest()->filter($request->query())->paginate(10);
 
         $columnsToExclude = ['id', 'name', 'description', 'course_name', 'start_date', 'end_date', 'total_students', 'created_at'];
 
@@ -190,10 +192,10 @@ class AdministratorController extends Controller
         ]);
     }
 
-    public function  manageReport(): View
+    public function  manageReport(Request $request): View
     {
 
-        $reports = Report::orderBy('created_at', 'desc')->get();
+        $reports = Report::latest()->filter($request->query())->paginate(10);
 
         $columnsToExclude = ['id', 'name', 'description', 'mark', 'status', 'student_name', 'created_at'];
 

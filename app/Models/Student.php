@@ -31,4 +31,13 @@ class Student extends Model
     {
         return $this->hasMany(Report::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('name', 'like', '%' . $filters['search'] . '%');
+        }
+
+        $query->orderBy('users.created_at', 'desc');
+    }
 }

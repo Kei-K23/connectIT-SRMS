@@ -29,4 +29,13 @@ class Section extends Model
     {
         return $this->hasMany(Student::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('name', 'like', '%' . $filters['search'] . '%');
+        }
+
+        $query->orderBy('created_at', 'desc');
+    }
 }

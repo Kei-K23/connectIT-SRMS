@@ -22,4 +22,13 @@ class Report extends Model
     {
         return $this->belongsTo(Student::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('name', 'like', '%' . $filters['search'] . '%');
+        }
+
+        $query->orderBy('created_at', 'desc');
+    }
 }
