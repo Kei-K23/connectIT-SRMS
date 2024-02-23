@@ -30,6 +30,22 @@ class DatabaseSeeder extends Seeder
             'fee' => 1000,
         ]);
 
+        \App\Models\Subject::create([
+            'name' => 'Cou-1:Sub-1',
+            'description' => "This is the first subject",
+            'course_id' => $course_1->id,
+        ]);
+        \App\Models\Subject::create([
+            'name' => 'Cou-1:Sub-2',
+            'description' => "This is the second subject",
+            'course_id' => $course_1->id,
+        ]);
+        \App\Models\Subject::create([
+            'name' => 'Cou-1:Sub-3',
+            'description' => "This is the third subject",
+            'course_id' => $course_1->id,
+        ]);
+
         \App\Models\Section::create([
             'name' => 'Section 1',
             'description' => "This is the first section",
@@ -37,6 +53,7 @@ class DatabaseSeeder extends Seeder
             'end_date' => '10/01/2024',
             'course_id' => $course_1->id,
         ]);
+
         \App\Models\Section::create([
             'name' => 'Section 2',
             'description' => "This is the second section",
@@ -50,6 +67,22 @@ class DatabaseSeeder extends Seeder
             'duration' => '2 months',
             'description' => "This is the second course",
             'fee' => 500,
+        ]);
+
+        \App\Models\Subject::create([
+            'name' => 'Cou-2:Sub-1',
+            'description' => "This is the first subject",
+            'course_id' => $course_2->id,
+        ]);
+        \App\Models\Subject::create([
+            'name' => 'Cou-2:Sub-2',
+            'description' => "This is the second subject",
+            'course_id' => $course_2->id,
+        ]);
+        \App\Models\Subject::create([
+            'name' => 'Cou-2:Sub-3',
+            'description' => "This is the third subject",
+            'course_id' => $course_2->id,
         ]);
 
         \App\Models\Section::create([
@@ -72,6 +105,22 @@ class DatabaseSeeder extends Seeder
             'duration' => '3 months',
             'description' => "This is the third course",
             'fee' => 700,
+        ]);
+
+        \App\Models\Subject::create([
+            'name' => 'Cou-3:Sub-1',
+            'description' => "This is the first subject",
+            'course_id' => $course_3->id,
+        ]);
+        \App\Models\Subject::create([
+            'name' => 'Cou-3:Sub-2',
+            'description' => "This is the second subject",
+            'course_id' => $course_3->id,
+        ]);
+        \App\Models\Subject::create([
+            'name' => 'Cou-3:Sub-3',
+            'description' => "This is the third subject",
+            'course_id' => $course_3->id,
         ]);
 
         \App\Models\Section::create([
