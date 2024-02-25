@@ -22,6 +22,11 @@ class Course extends Model
         return $this->hasMany(Section::class);
     }
 
+    public function subjects(): HasMany
+    {
+        return $this->hasMany(Subject::class);
+    }
+
     public function scopeFilter($query, array $filters)
     {
         if ($filters['search'] ?? false) {

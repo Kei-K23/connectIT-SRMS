@@ -6,12 +6,14 @@ use App\Models\Course;
 use App\Models\Report;
 use App\Models\Section;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Illuminate\Validation\Rules;
+
 
 class AdministratorController extends Controller
 {
@@ -38,6 +40,12 @@ class AdministratorController extends Controller
     {
         $courses = Course::all();
         return view('dashboard.admin.add-section', ['courses' => $courses]);
+    }
+
+    public function addSubject(): View
+    {
+        $courses = Course::all();
+        return view('dashboard.admin.add-subject', ['courses' => $courses]);
     }
 
     public function addReport(): View
@@ -115,6 +123,23 @@ class AdministratorController extends Controller
         return back()->with('success', 'Section added Successfully');
     }
 
+    public function addSubjectStore(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+            'course_id' => ['required'],
+        ]);
+
+        Subject::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+        ]);
+
+        return back()->with('success', 'Subject added Successfully');
+    }
+
     public function addReportStore(Request $request): RedirectResponse
     {
         $request->validate([
@@ -189,6 +214,19 @@ class AdministratorController extends Controller
         return view('dashboard.admin.manage-section', [
             'columns' => $columnsToExclude,
             'sections' => $sections
+        ]);
+    }
+
+    public function  manageSubject(Request $request): View
+    {
+
+        $subjects = Subject::latest()->filter($request->query())->paginate(10);
+
+        $columnsToExclude = ['id', 'name', 'description', 'course_name', 'created_at'];
+
+        return view('dashboard.admin.manage-subject', [
+            'columns' => $columnsToExclude,
+            'subjects' => $subjects
         ]);
     }
 
@@ -309,6 +347,25 @@ class AdministratorController extends Controller
         ]);
 
         return back()->with('success', 'Section updated Successfully');
+    }
+
+
+    public function updateSubject(Request $request, $subjectId): RedirectResponse
+    {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:255'],
+        ]);
+
+        $subject = Subject::where('id', $subjectId)->first();;
+
+        $subject->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return back()->with('success', 'Subject updated Successfully');
     }
 
     public function updateReport(Request $request, $reportId): RedirectResponse

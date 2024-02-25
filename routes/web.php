@@ -81,6 +81,19 @@ Route::group([], function () {
 
         Route::delete('/a/dashboard/reports/manage-report/delete/{reportId}', [AdministratorController::class, 'manageReportDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-report.delete');
     });
+
+    // admin dashboard - subjects routes
+    Route::group([], function () {
+        Route::get('/a/dashboard/subjects/add-subject', [AdministratorController::class, 'addSubject'])->middleware(['auth', 'verified'])->name('a.dashboard.add-subject');
+
+        Route::post('/a/dashboard/subjects/add-subject', [AdministratorController::class, 'addSubjectStore'])->middleware(['auth', 'verified'])->name('a.dashboard.add-subject.store');
+
+        Route::put('/a/dashboard/subjects/update-subject/{subjectId}', [AdministratorController::class, 'updateSubject'])->middleware(['auth', 'verified'])->name('a.dashboard.update-subject.update');
+
+        Route::get('/a/dashboard/subjects/manage-subject', [AdministratorController::class, 'manageSubject'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-subject');
+
+        Route::delete('/a/dashboard/subjects/manage-subject/delete/{subjectId}', [AdministratorController::class, 'manageSubjectDelete'])->middleware(['auth', 'verified'])->name('a.dashboard.manage-subject.delete');
+    });
 });
 
 Route::get('/s/dashboard', function () {
