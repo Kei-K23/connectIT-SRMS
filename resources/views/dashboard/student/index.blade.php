@@ -27,6 +27,13 @@
                         </p>
 
 
+                        @if(session('success'))
+                        <div class="max-w-md p-4 mx-auto mb-4 text-sm text-center text-green-800 rounded-lg bg-green-50"
+                            role="alert">
+                            <span class="font-medium text-center">{{ session('success') }}</span>
+                        </div>
+                        @endif
+
                         <h2 class="mt-4 text-lg font-bold">Subjects</h2>
                         <div class="grid grid-cols-1 gap-8 mt-3 lg:grid-cols-3">
                             @foreach ($section->course->subjects as $subject)
@@ -44,7 +51,12 @@
                                 @endphp
                                 <p>Start : {{ $startTime }}</p>
                                 <p>End : {{ $endTime }}</p>
-                                <form action="" method="post" class="mt-3">
+                                <form action="{{ route('s.dashboard.attendance.store') }}" method="post" class="mt-3">
+                                    @csrf
+                                    <input type="hidden" name="is_present" value="true">
+                                    <input type="hidden" name="subject_id" value="{{ $subject->id }}">
+                                    <input type="hidden" name="student_id" value="{{ auth()->user()->student->id }}">
+                                    <input type="hidden" name="section_id" value="{{ $section->id }}">
                                     <button type="submit"
                                         class="p-2 font-semibold transition-colors rounded-lg cursor-pointer bg-slate-400 hover:bg-slate-300 active:bg-slate-500">Make
                                         as done</button>

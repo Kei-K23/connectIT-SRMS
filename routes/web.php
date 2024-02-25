@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -97,8 +98,13 @@ Route::group([], function () {
     });
 });
 
+// student routes
 Route::group([], function () {
     Route::get('/s/dashboard', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('s.dashboard');
+
+    Route::group([], function () {
+        Route::post('/s/dashboard/attendance', [AttendanceController::class, 'store'])->name('s.dashboard.attendance.store');
+    });
 });
 
 

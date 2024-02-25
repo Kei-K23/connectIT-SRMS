@@ -32,6 +32,12 @@ class Student extends Model
         return $this->hasMany(Report::class);
     }
 
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
+
     public function scopeFilter($query, array $filters)
     {
         if ($filters['search'] ?? false) {
