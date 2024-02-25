@@ -65,9 +65,28 @@
                                     <input type="hidden" name="subject_id" value="{{ $subject->id }}">
                                     <input type="hidden" name="student_id" value="{{ auth()->user()->student->id }}">
                                     <input type="hidden" name="section_id" value="{{ $section->id }}">
-                                    <button type="submit"
-                                        class="p-2 font-semibold transition-colors rounded-lg cursor-pointer bg-slate-400 hover:bg-slate-300 active:bg-slate-500">Make
-                                        as done</button>
+
+                                    @php
+                                    $currentDate = Carbon\Carbon::now();
+                                    $latestAttendance = App\Models\Attendance::where('subject_id',
+                                    $subject->id)
+                                    ->where('student_id', auth()->user()->student->id)
+                                    ->latest()
+                                    ->first();
+
+                                    $isMake = $latestAttendance && $latestAttendance->created_at->toDateString() ===
+                                    $currentDate->toDateString()
+                                    @endphp
+
+                                    <button type="submit" {{ $isMake ? 'disabled' : '' }}
+                                        class="p-2 font-semibold transition-colors rounded-lg cursor-pointer bg-slate-400 hover:bg-slate-300 active:bg-slate-500 disabled:bg-slate-300 disabled:cursor-default">
+                                        @if($isMake)
+                                        <i class="fa-solid fa-check text-emerald-700"></i>
+                                        Done
+                                        @else
+                                        Made as done
+                                        @endif
+                                    </button>
                                 </form>
                             </div>
                             @endforeach
