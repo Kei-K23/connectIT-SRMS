@@ -272,6 +272,15 @@ class AdministratorController extends Controller
         return back()->with('success', 'Section deleted Successfully');
     }
 
+    public function manageSubjectDelete(Request $request, $subjectId): RedirectResponse
+    {
+        $subject = Subject::where('id', $subjectId)->first();
+
+        $subject->delete();
+
+        return back()->with('success', 'Subject deleted Successfully');
+    }
+
     public function manageReportDelete(Request $request, $reportId): RedirectResponse
     {
         $report = Report::where('id', $reportId)->first();
