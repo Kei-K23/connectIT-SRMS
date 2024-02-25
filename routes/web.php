@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -96,9 +97,10 @@ Route::group([], function () {
     });
 });
 
-Route::get('/s/dashboard', function () {
-    return view('dashboard.student.index');
-})->middleware(['auth', 'verified'])->name('s.dashboard');
+Route::group([], function () {
+    Route::get('/s/dashboard', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('s.dashboard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

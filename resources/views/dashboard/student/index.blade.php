@@ -1,7 +1,7 @@
 <x-student-layout>
     <div class="p-4 sm:ml-64">
         <div class="py-4">
-            <div class="mx-auto shadow-md sm:rounded-lg">
+            <div class="mx-auto space-y-4 shadow-md sm:rounded-lg">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         @php
@@ -15,6 +15,43 @@
                             <p class="text-lg text-slate-500">
                                 Here is what’s happening with your projects today:
                             </p>
+                    </div>
+                </div>
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <h2 class="text-xl font-bold">
+                            {{ $section->name }}
+                        </h2>
+                        <p>
+                            {{ $section->description }}
+                        </p>
+
+
+                        <h2 class="mt-4 text-lg font-bold">Subjects</h2>
+                        <div class="grid grid-cols-1 gap-8 mt-3 lg:grid-cols-3">
+                            @foreach ($section->course->subjects as $subject)
+                            <div class="p-4 bg-gray-100 rounded-lg">
+                                <h2 class="mb-2 text-lg font-bold">
+                                    {{ $subject->name }}
+                                </h2>
+                                <p class="mb-1">{{ $subject->description ?? '...' }}</p>
+                                @php
+                                $carbonTimeForStartTime = Carbon\Carbon::createFromFormat('H:i:s',
+                                $subject->start_time);
+                                $carbonTimeForEndTime = Carbon\Carbon::createFromFormat('H:i:s', $subject->end_time);
+                                $startTime = $carbonTimeForStartTime->format('g A');
+                                $endTime = $carbonTimeForEndTime->format('g A');
+                                @endphp
+                                <p>Start : {{ $startTime }}</p>
+                                <p>End : {{ $endTime }}</p>
+                                <form action="" method="post" class="mt-3">
+                                    <button type="submit"
+                                        class="p-2 font-semibold transition-colors rounded-lg cursor-pointer bg-slate-400 hover:bg-slate-300 active:bg-slate-500">Make
+                                        as done</button>
+                                </form>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
