@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('status');
             $table->integer('mark')->nullable();
             $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+            $table->foreignId('subject_id')->constrained('subjects')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -51,7 +51,8 @@ class AdministratorController extends Controller
     public function addReport(): View
     {
         $students = Student::all();
-        return view('dashboard.admin.add-report', ['students' => $students]);
+        $subjects = Subject::all();
+        return view('dashboard.admin.add-report', ['students' => $students, 'subjects' => $subjects]);
     }
 
 
@@ -152,6 +153,7 @@ class AdministratorController extends Controller
             'mark' => ['required', 'numeric'],
             'status' => ['required', 'string', 'max:255'],
             'student_id' => ['required'],
+            'subject_id' => ['required'],
         ]);
 
         Report::create([
@@ -160,6 +162,7 @@ class AdministratorController extends Controller
             'mark' => $request->mark,
             'status' => $request->status,
             'student_id' => $request->student_id,
+            'subject_id' => $request->subject_id,
         ]);
 
         return back()->with('success', 'Report added Successfully');
@@ -239,7 +242,7 @@ class AdministratorController extends Controller
 
         $reports = Report::latest()->filter($request->query())->paginate(10);
 
-        $columnsToExclude = ['id', 'name', 'description', 'mark', 'status', 'student_name', 'created_at'];
+        $columnsToExclude = ['id', 'name', 'description', 'mark', 'status', 'student_name', 'subject_name', 'created_at'];
 
         return view('dashboard.admin.manage-report', [
             'columns' => $columnsToExclude,

@@ -62,6 +62,9 @@
                                 {{ $report->student->user->name }}
                             </td>
                             <td class="px-6 py-4 text-base">
+                                {{ $report->subject->name }}
+                            </td>
+                            <td class="px-6 py-4 text-base">
                                 {{ $report->created_at->diffForHumans() }}
                             </td>
                             <td class="flex items-center gap-2 px-6 py-4 text-base">

@@ -15,12 +15,18 @@ class Report extends Model
         'description',
         'status',
         'mark',
-        'student_id'
+        'student_id',
+        'subject_id'
     ];
 
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function subject(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
     }
 
     public function scopeFilter($query, array $filters)
