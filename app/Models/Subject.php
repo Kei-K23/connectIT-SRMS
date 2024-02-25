@@ -14,6 +14,8 @@ class Subject extends Model
         'name',
         'description',
         'course_id',
+        'start_time',
+        'end_time',
     ];
 
     public function course(): BelongsTo

@@ -57,6 +57,12 @@
                                 {{ $subject->course->name ?? "..." }}
                             </td>
                             <td class="px-6 py-4 text-base">
+                                {{ $subject->start_time }}
+                            </td>
+                            <td class="px-6 py-4 text-base">
+                                {{ $subject->end_time}}
+                            </td>
+                            <td class="px-6 py-4 text-base">
                                 {{ $subject->created_at->diffForHumans() }}
                             </td>
                             <td class="flex items-center gap-2 px-6 py-4 text-base">
@@ -125,6 +131,53 @@
                                     @enderror
                                 </div>
 
+                                <div class="flex items-center w-full">
+                                    <div class="relative">
+                                        <label for="start_time"
+                                            class="block mb-2 text-sm font-medium text-gray-900">Start
+                                            time</label>
+                                        <select id="start_time" name="start_time"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                            <?php
+                                                            // Loop through hours
+                                                            for ($hour = 0; $hour < 24; $hour++) {
+                                                                for ($minute = 0; $minute < 60; $minute += 15) {
+                                                                    $hourStr = str_pad($hour, 2, '0', STR_PAD_LEFT);
+                                                                    $minuteStr = str_pad($minute, 2, '0', STR_PAD_LEFT);
+
+                                                                    echo "<option value='$hourStr:$minuteStr:00'>$hourStr:$minuteStr:00</option>";
+                                                                }
+                                                            }
+                                                            ?>
+                                        </select>
+                                        @error('start_time')
+                                        <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <span class="mx-4 text-gray-500">to</span>
+                                    <div class="relative">
+                                        <label for="end_time" class="block mb-2 text-sm font-medium text-gray-900">End
+                                            time</label>
+                                        <select id="end_time" name="end_time"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                                            <?php
+                                                            // Loop through hours
+                                                            for ($hour = 0; $hour < 24; $hour++) {
+                                                                for ($minute = 0; $minute < 60; $minute += 15) {
+                                                                    $hourStr = str_pad($hour, 2, '0', STR_PAD_LEFT);
+                                                                    $minuteStr = str_pad($minute, 2, '0', STR_PAD_LEFT);
+
+                                                                    echo "<option value='$hourStr:$minuteStr:00'>$hourStr:$minuteStr:00</option>";
+                                                                }
+                                                            }
+                                                            ?>
+                                        </select>
+                                        @error('end_time')
+                                        <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
                             <input type="hidden" name="subjectId" id="subjectId">
                             <!-- Modal footer -->
@@ -152,12 +205,16 @@
                         const id = $tr.find('td:eq(0)').text().trim();
                         const name = $tr.find('td:eq(1)').text().trim();
                         const description = $tr.find('td:eq(2)').text().trim();
+                        const start_time = $tr.find('td:eq(4)').text().trim();
+                        const end_time = $tr.find('td:eq(5)').text().trim();
 
 
                         // Set values in the modal form
                         $('#name').val(name);
                         $('#description').val(description);
                         $('#subjectId').val(id);
+                        $('#start_time').val(start_time);
+                        $('#end_time').val(end_time);
 
                         // Display the modal
                         $('#editUserModal').show();

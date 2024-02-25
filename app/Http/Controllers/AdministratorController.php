@@ -129,12 +129,16 @@ class AdministratorController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'course_id' => ['required'],
+            'start_time' => ['required', 'string'],
+            'end_time' => ['required', 'string']
         ]);
 
         Subject::create([
             'name' => $request->name,
             'description' => $request->description,
             'course_id' => $request->course_id,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
         ]);
 
         return back()->with('success', 'Subject added Successfully');
@@ -222,7 +226,7 @@ class AdministratorController extends Controller
 
         $subjects = Subject::latest()->filter($request->query())->paginate(10);
 
-        $columnsToExclude = ['id', 'name', 'description', 'course_name', 'created_at'];
+        $columnsToExclude = ['id', 'name', 'description', 'course_name', 'start_time', 'end_time', 'created_at'];
 
         return view('dashboard.admin.manage-subject', [
             'columns' => $columnsToExclude,
@@ -365,6 +369,8 @@ class AdministratorController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
+            'start_time' => ['required', 'string'],
+            'end_time' => ['required', 'string']
         ]);
 
         $subject = Subject::where('id', $subjectId)->first();;
@@ -372,6 +378,8 @@ class AdministratorController extends Controller
         $subject->update([
             'name' => $request->name,
             'description' => $request->description,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
         ]);
 
         return back()->with('success', 'Subject updated Successfully');

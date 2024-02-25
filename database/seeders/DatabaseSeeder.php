@@ -33,16 +33,22 @@ class DatabaseSeeder extends Seeder
         \App\Models\Subject::create([
             'name' => 'Cou-1:Sub-1',
             'description' => "This is the first subject",
+            'start_time' => '10:00:00',
+            'end_time' => '11:00:00',
             'course_id' => $course_1->id,
         ]);
         \App\Models\Subject::create([
             'name' => 'Cou-1:Sub-2',
             'description' => "This is the second subject",
+            'start_time' => '11:00:00',
+            'end_time' => '12:00:00',
             'course_id' => $course_1->id,
         ]);
         \App\Models\Subject::create([
             'name' => 'Cou-1:Sub-3',
             'description' => "This is the third subject",
+            'start_time' => '12:00:00',
+            'end_time' => '13:00:00',
             'course_id' => $course_1->id,
         ]);
 
@@ -72,16 +78,22 @@ class DatabaseSeeder extends Seeder
         \App\Models\Subject::create([
             'name' => 'Cou-2:Sub-1',
             'description' => "This is the first subject",
+            'start_time' => '8:00:00',
+            'end_time' => '9:00:00',
             'course_id' => $course_2->id,
         ]);
         \App\Models\Subject::create([
             'name' => 'Cou-2:Sub-2',
             'description' => "This is the second subject",
+            'start_time' => '10:00:00',
+            'end_time' => '11:00:00',
             'course_id' => $course_2->id,
         ]);
         \App\Models\Subject::create([
             'name' => 'Cou-2:Sub-3',
             'description' => "This is the third subject",
+            'start_time' => '12:00:00',
+            'end_time' => '13:00:00',
             'course_id' => $course_2->id,
         ]);
 
@@ -110,16 +122,22 @@ class DatabaseSeeder extends Seeder
         \App\Models\Subject::create([
             'name' => 'Cou-3:Sub-1',
             'description' => "This is the first subject",
+            'start_time' => '14:00:00',
+            'end_time' => '15:00:00',
             'course_id' => $course_3->id,
         ]);
         \App\Models\Subject::create([
             'name' => 'Cou-3:Sub-2',
             'description' => "This is the second subject",
+            'start_time' => '15:00:00',
+            'end_time' => '16:00:00',
             'course_id' => $course_3->id,
         ]);
         \App\Models\Subject::create([
             'name' => 'Cou-3:Sub-3',
             'description' => "This is the third subject",
+            'start_time' => '16:00:00',
+            'end_time' => '17:00:00',
             'course_id' => $course_3->id,
         ]);
 
