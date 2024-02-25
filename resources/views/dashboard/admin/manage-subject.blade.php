@@ -166,7 +166,7 @@
                     // Handle form submission
                     $('#editUserModal form').submit(function(e) {
                         const subjectId = $('#subjectId').val();
-                        e.currentTarget.action = `http://127.0.0.1:8000/a/dashboard/subjects/update-subject/${subjectId}`
+                        e.currentTarget.action = `http://127.0.0.1:8000/a/dashboard/subjects/update-subject/${subjectId}`;
                     });
 
                     // Handle click event for closing the modal

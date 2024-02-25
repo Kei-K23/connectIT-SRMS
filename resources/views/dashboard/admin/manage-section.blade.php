@@ -194,8 +194,8 @@
                         const id = $tr.find('td:eq(0)').text().trim();
                         const name = $tr.find('td:eq(1)').text().trim();
                         const description = $tr.find('td:eq(2)').text().trim();
-                        const start_date = $tr.find('td:eq(3)').text().trim();
-                        const end_date = $tr.find('td:eq(4)').text().trim();
+                        const start_date = $tr.find('td:eq(4)').text().trim();
+                        const end_date = $tr.find('td:eq(5)').text().trim();
 
 
                         // Set values in the modal form
