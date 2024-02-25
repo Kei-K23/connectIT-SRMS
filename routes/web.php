@@ -103,7 +103,7 @@ Route::group([], function () {
     Route::get('/s/dashboard', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('s.dashboard');
 
     Route::group([], function () {
-        Route::post('/s/dashboard/attendance', [AttendanceController::class, 'store'])->name('s.dashboard.attendance.store');
+        Route::post('/s/dashboard/attendance/{subjectId}', [AttendanceController::class, 'store'])->middleware('attendance.time.check')->name('s.dashboard.attendance.store');
     });
 });
 

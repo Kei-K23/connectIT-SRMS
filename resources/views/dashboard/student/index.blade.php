@@ -33,6 +33,12 @@
                             <span class="font-medium text-center">{{ session('success') }}</span>
                         </div>
                         @endif
+                        @if(session('error'))
+                        <div class="max-w-md p-4 mx-auto mb-4 text-sm text-center text-red-800 rounded-lg bg-red-50"
+                            role="alert">
+                            <span class="font-medium text-center">{{ session('error') }}</span>
+                        </div>
+                        @endif
 
                         <h2 class="mt-4 text-lg font-bold">Subjects</h2>
                         <div class="grid grid-cols-1 gap-8 mt-3 lg:grid-cols-3">
@@ -51,7 +57,9 @@
                                 @endphp
                                 <p>Start : {{ $startTime }}</p>
                                 <p>End : {{ $endTime }}</p>
-                                <form action="{{ route('s.dashboard.attendance.store') }}" method="post" class="mt-3">
+                                <form
+                                    action="{{ route('s.dashboard.attendance.store', ['subjectId' => $subject->id]) }}"
+                                    method="post" class="mt-3">
                                     @csrf
                                     <input type="hidden" name="is_present" value="true">
                                     <input type="hidden" name="subject_id" value="{{ $subject->id }}">
