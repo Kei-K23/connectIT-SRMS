@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -107,6 +108,8 @@ Route::group([], function () {
 
         Route::get('/s/dashboard/attendance', [AttendanceController::class, 'index'])->name('s.dashboard.attendance');
     });
+
+    Route::get('/s/dashboard/report', [ReportController::class, 'index'])->name('s.dashboard.report');
 });
 
 
