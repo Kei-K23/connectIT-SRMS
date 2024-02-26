@@ -104,6 +104,8 @@ Route::group([], function () {
 
     Route::group([], function () {
         Route::post('/s/dashboard/attendance/{subjectId}', [AttendanceController::class, 'store'])->middleware('attendance.time.check')->name('s.dashboard.attendance.store');
+
+        Route::get('/s/dashboard/attendance', [AttendanceController::class, 'index'])->name('s.dashboard.attendance');
     });
 });
 

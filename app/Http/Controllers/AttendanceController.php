@@ -6,9 +6,27 @@ use App\Models\Attendance;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AttendanceController extends Controller
 {
+
+    public function index(Request $request): View
+    {
+        $user = $request->user();
+
+        $section = $user->student->section;
+        $course = $section->course;
+        $attendances = Attendance::where('student_id', $user->student->id)->get();
+
+
+        return view('dashboard.student.manage-attendance', [
+            'attendances' => $attendances,
+            'course' => $course,
+            'section' => $section
+        ]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
 
