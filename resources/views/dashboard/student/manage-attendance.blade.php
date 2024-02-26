@@ -4,53 +4,21 @@
             <div class="mx-auto space-y-4 shadow-md sm:rounded-lg">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        @php
-                        // Start and end dates
-                        $startDate = Carbon\Carbon::createFromFormat('m/d/Y', $section->start_date );
-                        $endDate = Carbon\Carbon::createFromFormat('m/d/Y', $section->end_date );
 
-                        $subjects = $course->subjects;
-                        $subCount = count($subjects);
-
-                        // Array to store generated dates
-                        $subAttendances = [];
-                        $currentDate = now();
-                        // Generate dates between start and end dates
-                        while ($startDate->lte($endDate)) {
-
-                        foreach ($subjects as $key => $subject) {
-
-                        $asocArr=[];
-                        $asocArr['date']=$startDate->format('m/d/Y');
-                        $asocArr['start_time']=$subject->start_time;
-                        $asocArr['end_time']=$subject->end_time;
-                        $asocArr['name']=$subject->name;
-                        // Fetch attendance status for this subject and date
-                        $attendance = App\Models\Attendance::where('student_id', Auth::user()->student->id)
-                        ->where('subject_id', $subject->id)
-                        ->whereDate('created_at', $startDate->format('Y-m-d'))
-                        ->first();
-
-                        if ($attendance) {
-                        $asocArr['status'] = $attendance->is_present ? 'Present' : 'Absent';
-                        } else {
-                        // Check if the date is in the past
-                        if ($startDate->lt($currentDate)) {
-                        $asocArr['status'] = 'Absent'; // Mark as absent for past dates without attendance
-                        } else {
-                        $asocArr['status'] = 'Not Recorded';
-                        }
-
-                        }
-                        $subAttendances[]= $asocArr;
-                        }
-
-                        $startDate->addDay();
-                        }
-
-                        @endphp
-
-                        This is attendance
+                        <div class="mb-8">
+                            <h2 class="mb-4 text-xl font-bold">
+                                {{ Auth::user()->name }}
+                            </h2>
+                            <h3 class="text-base font-bold">
+                                Course Name: {{ $course->name }}
+                            </h3>
+                            <h3 class="text-base font-bold">
+                                Section Name: {{ $section->name }}
+                            </h3>
+                            <h3 class="text-base font-bold">
+                                Present: {{ $attendances->count() }}
+                            </h3>
+                        </div>
 
                         <table class="w-full text-sm text-left rtl:text-right ">
                             <thead class="text-sm font-bold uppercase bg-gray-50 ">
