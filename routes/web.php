@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 // admin routes
-Route::group([], function () {
+Route::group(['middleware' => ['isAdmin']], function () {
 
     Route::get('/a/dashboard', [AdministratorController::class, 'index'])->middleware(['auth', 'verified'])->name('a.dashboard');
 
@@ -100,7 +100,7 @@ Route::group([], function () {
 });
 
 // student routes
-Route::group([], function () {
+Route::group(['middleware' => ['isStudent']], function () {
     Route::get('/s/dashboard', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('s.dashboard');
 
     Route::group([], function () {
