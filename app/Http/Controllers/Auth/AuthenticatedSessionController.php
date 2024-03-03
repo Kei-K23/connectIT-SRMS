@@ -45,6 +45,9 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
             } elseif ($user->student) {
                 return redirect()->intended(RouteServiceProvider::STUDENT_HOME);
+            } elseif ($user->instructor) {
+
+                return redirect()->intended(RouteServiceProvider::INSTRUCTOR_HOME);
             }
         } else {
             return redirect()->back()->withErrors(['password' => __('auth.failed')]);

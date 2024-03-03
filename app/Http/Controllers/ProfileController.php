@@ -26,6 +26,10 @@ class ProfileController extends Controller
             return view('profile.student-edit', [
                 'user' => $request->user(),
             ]);
+        } elseif ($user->instructor) {
+            return view('profile.instructor-edit', [
+                'user' => $request->user(),
+            ]);
         }
     }
 

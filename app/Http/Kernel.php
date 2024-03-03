@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'attendance.time.check' => \App\Http\Middleware\AttendanceTimeCheckMiddleware::class,
         'isAdmin' => \App\Http\Middleware\CheckIsAdminMiddleware::class,
         'isStudent' => \App\Http\Middleware\CheckIsStudentMiddleware::class,
+        'isInstructor' => \App\Http\Middleware\CheckIsInstructorMiddleware::class,
     ];
 }

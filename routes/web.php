@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudentController;
@@ -110,6 +111,9 @@ Route::group(['middleware' => ['isStudent']], function () {
     });
 
     Route::get('/s/dashboard/report', [ReportController::class, 'index'])->name('s.dashboard.report');
+});
+Route::group(['middleware' => ['isInstructor']], function () {
+    Route::get('/i/dashboard', [InstructorController::class, 'index'])->middleware(['auth', 'verified'])->name('i.dashboard');
 });
 
 
