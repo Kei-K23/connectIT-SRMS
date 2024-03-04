@@ -7,8 +7,9 @@ use Illuminate\View\View;
 
 class InstructorController extends Controller
 {
-    public function  index(): View
+    public function  index(Request $request): View
     {
-        return view("dashboard.instructor.index");
+        $user = $request->user();
+        return view("dashboard.instructor.index", ['user' => $user]);
     }
 }

@@ -14,13 +14,22 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $defaultUser = \App\Models\User::factory()->create([
+        $defaultAdminUser = \App\Models\User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
+        $defaultInstructorUser = \App\Models\User::factory()->create([
+            'name' => 'Jack',
+            'email' => 'jack@example.com',
+        ]);
+        $defaultStudentUser = \App\Models\User::factory()->create([
+            'name' => 'Kei',
+            'email' => 'kei@example.com',
+        ]);
+
         \App\Models\Administrator::create([
-            'user_id' => $defaultUser->id,
+            'user_id' => $defaultAdminUser->id,
         ]);
 
         $course_1 =  \App\Models\Course::create([
@@ -52,12 +61,21 @@ class DatabaseSeeder extends Seeder
             'course_id' => $course_1->id,
         ]);
 
-        \App\Models\Section::create([
+        $section1 = \App\Models\Section::create([
             'name' => 'Section 1',
             'description' => "This is the first section",
             'start_date' => '04/01/2024',
             'end_date' => '10/01/2024',
             'course_id' => $course_1->id,
+        ]);
+
+        \App\Models\Instructor::create([
+            'user_id' => $defaultInstructorUser->id,
+            'section_id' => $section1->id,
+        ]);
+        \App\Models\Student::create([
+            'user_id' => $defaultStudentUser->id,
+            'section_id' => $section1->id,
         ]);
 
         \App\Models\Section::create([
