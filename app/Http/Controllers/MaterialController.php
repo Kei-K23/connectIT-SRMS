@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
 {
@@ -36,5 +37,34 @@ class MaterialController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'File uploaded successfully');
+    }
+
+    // public function download($filename)
+    // {
+    //     // Check if the file exists in the storage directory
+    //     if (Storage::disk('public')->exists($filename)) {
+    //         // Get the file path
+    //         $filePath = Storage::disk('public')->path($filename);
+
+    //         // Return the file as a downloadable response
+    //         return response()->download($filePath);
+    //     }
+
+    //     // If the file does not exist, return a 404 error
+    //     return redirect()->back()->with('error', 'Material not found');
+    // }
+    public function download($filename)
+    {
+        // Check if the file exists in the storage directory
+        if (Storage::exists('public' . $filename)) {
+            // Get the file path
+            $filePath = storage_path('public' . $filename);
+
+            // Return the file as a downloadable response
+            return response()->download($filePath);
+        }
+
+        // If the file does not exist, return a 404 error
+        return redirect()->back()->with('error', 'Not found material');
     }
 }

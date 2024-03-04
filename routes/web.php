@@ -123,7 +123,12 @@ Route::group(['middleware' => ['isInstructor']], function () {
 
 Route::group([], function () {
     Route::post('/materials', [MaterialController::class, 'store'])->middleware(['auth', 'verified'])->name('materials.store');
+
+    Route::get('/materials/{filename}/download', [MaterialController::class, 'download'])->middleware(['auth', 'verified'])->name('materials.download');
 });
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

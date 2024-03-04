@@ -93,6 +93,38 @@
                         </div>
                     </div>
                 </div>
+                <div class="p-6 overflow-hidden text-gray-900 bg-white shadow-sm sm:rounded-lg">
+                    <h2 class="text-xl font-bold">
+                        Materials for {{ $section->name }}
+                    </h2>
+                    @if(session('not-found-error'))
+                    <div class="max-w-md p-4 mx-auto mb-4 text-sm text-center text-red-800 rounded-lg bg-red-50"
+                        role="alert">
+                        <span class="font-medium text-center">{{ session('not-found-error') }}</span>
+                    </div>
+                    @endif
+                    <div class="grid grid-cols-1 gap-8 mt-3 md:grid-cols-3 lg:grid-cols-4">
+                        @foreach ($materials as $material)
+                        <div class="p-4 bg-gray-100 rounded-lg">
+                            <img src="{{ asset('storage/' . $material->file) }}" alt="{{$material->name}}">
+                            <h3 class="mt-3 text-lg font-bold">
+                                {{$material->name}}
+                            </h3>
+                            <p>
+                                {{$material->description ?? "---"}}
+                            </p>
+                            <p class="mt-2">
+                                Uploaded {{$material->created_at->diffForHumans()}}
+                            </p>
+                            <p>
+                                Uploaded by {{ $material->instructor->user->name
+                                }}
+                            </p>
+                            <a href="{{ route('materials.download', ['filename' => $material->file]) }}">Download</a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>
