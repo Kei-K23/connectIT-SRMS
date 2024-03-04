@@ -106,7 +106,27 @@
                     <div class="grid grid-cols-1 gap-8 mt-3 md:grid-cols-3 lg:grid-cols-4">
                         @foreach ($materials as $material)
                         <div class="p-4 bg-gray-100 rounded-lg">
-                            <img src="{{ asset('storage/' . $material->file) }}" alt="{{$material->name}}">
+                            @if (Str::endsWith($material->file, ['.jpg', '.jpeg', '.png', '.gif', '.bmp']))
+                            <img class="w-full h-[120px] md:h-[150px]" src="{{ asset('storage/' . $material->file) }}"
+                                alt="{{ $material->name }}">
+                            @elseif (Str::endsWith($material->file, ['.pdf']))
+                            <div class="flex items-center justify-center w-full h-[120px] md:h-[150px] bg-gray-200">
+                                <i class="text-[50px] fa-solid fa-file-pdf"></i>
+                            </div>
+                            @elseif (Str::endsWith($material->file, ['.zip']))
+                            <div class="flex items-center justify-center w-full h-[120px] md:h-[150px] bg-gray-200">
+                                <i class="text-[50px] fa-solid fa-file-zipper"></i>
+                            </div>
+                            @elseif (Str::endsWith($material->file, ['.docx', '.dotx']))
+                            <div class="flex items-center justify-center w-full h-[120px] md:h-[150px] bg-gray-200">
+                                <i class="text-[50px] fa-solid fa-file-word"></i>
+                            </div>
+                            @else
+                            <div class="flex items-center justify-center w-full h-[120px] md:h-[150px] bg-gray-200">
+                                <i class="text-[50px] fa-solid fa-file"></i>
+                            </div>
+                            @endif
+
                             <h3 class="mt-3 text-lg font-bold">
                                 {{$material->name}}
                             </h3>
@@ -120,7 +140,8 @@
                                 Uploaded by {{ $material->instructor->user->name
                                 }}
                             </p>
-                            <a href="{{ route('materials.download', ['filename' => $material->file]) }}">Download</a>
+                            <a class="mt-3 text-blue-600 transition-all hover:underline"
+                                href="{{ route('materials.download', ['filename' => $material->file]) }}">Download</a>
                         </div>
                         @endforeach
                     </div>

@@ -124,6 +124,10 @@ Route::group(['middleware' => ['isInstructor']], function () {
 Route::group([], function () {
     Route::post('/materials', [MaterialController::class, 'store'])->middleware(['auth', 'verified'])->name('materials.store');
 
+    Route::put('/materials/{materialId}/update', [MaterialController::class, 'update'])->middleware(['auth', 'verified'])->name('materials.update');
+
+    Route::delete('/materials/delete', [MaterialController::class, 'destroy'])->middleware(['auth', 'verified'])->name('materials.delete');
+
     Route::get('/materials/{filename}/download', [MaterialController::class, 'download'])->middleware(['auth', 'verified'])->name('materials.download');
 });
 
