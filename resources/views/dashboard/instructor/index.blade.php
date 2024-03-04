@@ -80,6 +80,31 @@
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
                     </form>
                 </div>
+                <div class="p-6 overflow-hidden text-gray-900 bg-white shadow-sm sm:rounded-lg">
+                    <h2 class="text-xl font-bold">
+                        Materials for {{ $user->instructor->section->name }}
+                    </h2>
+                    <div class="grid grid-cols-1 gap-8 mt-3 md:grid-cols-3 lg:grid-cols-4">
+                        @foreach ($materials as $material)
+                        <div class="p-4 bg-gray-100 rounded-lg">
+                            <img src="{{ asset('storage/' . $material->file) }}" alt="{{$material->name}}">
+                            <h3 class="mt-3 text-lg font-bold">
+                                {{$material->name}}
+                            </h3>
+                            <p>
+                                {{$material->description ?? "---"}}
+                            </p>
+                            <p class="mt-2">
+                                Uploaded {{$material->created_at->diffForHumans()}}
+                            </p>
+                            <p>
+                                Uploaded by {{ $material->instructor->user->name
+                                }}
+                            </p>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
 </x-instructor-layout>

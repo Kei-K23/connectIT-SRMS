@@ -35,6 +35,11 @@ class Section extends Model
         return $this->hasMany(Attendance::class);
     }
 
+    public function materials(): HasMany
+    {
+        return $this->hasMany(Material::class);
+    }
+
 
     public function scopeFilter($query, array $filters)
     {

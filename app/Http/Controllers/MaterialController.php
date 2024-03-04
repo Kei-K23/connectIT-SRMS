@@ -10,7 +10,7 @@ class MaterialController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => ['required', 'string', 'min:1'],
             'description' => ['string', 'min:1'],
             'file' => ['required'],
@@ -18,15 +18,19 @@ class MaterialController extends Controller
             'instructor_id' => ['required'],
         ]);
 
-        $file = $request->file('file');
+        if ($request->hasFile('file')) {
+            // Store the image in the storage
+            $fileName = time() . '.' . $request->file->extension();
+            $request->file->storeAs('public', $fileName);
 
-        // Store the file in the storage/app/public directory
-        $path = $file->store('public');
+            $validatedData['file'] = $fileName;
+        }
+
 
         Material::create([
             'name' => $request->name,
             'description' => $request->description,
-            'file' => $path,
+            'file' => $validatedData['file'],
             'section_id' => $request->section_id,
             'instructor_id' => $request->instructor_id,
         ]);

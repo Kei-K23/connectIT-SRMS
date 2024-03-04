@@ -13,6 +13,8 @@ class StudentController extends Controller
 
         $section = $user->student->section;
 
-        return view('dashboard.student.index', ['section' => $section]);
+        $materials = $user->instructor->section->materials()->orderBy('created_at', 'desc')->get();
+
+        return view('dashboard.student.index', ['section' => $section, 'materials' => $materials]);
     }
 }

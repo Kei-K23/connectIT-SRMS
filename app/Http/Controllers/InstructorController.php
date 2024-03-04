@@ -10,6 +10,8 @@ class InstructorController extends Controller
     public function  index(Request $request): View
     {
         $user = $request->user();
-        return view("dashboard.instructor.index", ['user' => $user]);
+        $materials = $user->instructor->section->materials()->orderBy('created_at', 'desc')->get();
+
+        return view("dashboard.instructor.index", ['user' => $user, 'materials' => $materials]);
     }
 }
