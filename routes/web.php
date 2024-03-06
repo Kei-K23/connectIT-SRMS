@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ParentTController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudentController;
@@ -119,8 +121,12 @@ Route::group(['middleware' => ['isInstructor']], function () {
     Route::get('/i/dashboard', [InstructorController::class, 'index'])->middleware(['auth', 'verified'])->name('i.dashboard');
 });
 
-// materials routes
+// parent routes
+Route::group(['middleware' => ['isParent']], function () {
+    Route::get('/p/dashboard', [GuardianController::class, 'index'])->middleware(['auth', 'verified'])->name('p.dashboard');
+});
 
+// materials routes
 Route::group([], function () {
     Route::post('/materials', [MaterialController::class, 'store'])->middleware(['auth', 'verified'])->name('materials.store');
 

@@ -27,10 +27,15 @@ class DatabaseSeeder extends Seeder
             'name' => 'Kei',
             'email' => 'kei@example.com',
         ]);
+        $defaultParentUser = \App\Models\User::factory()->create([
+            'name' => 'Michael',
+            'email' => 'michael@example.com',
+        ]);
 
         \App\Models\Administrator::create([
             'user_id' => $defaultAdminUser->id,
         ]);
+
 
         $course_1 =  \App\Models\Course::create([
             'name' => 'Course 1',
@@ -73,9 +78,14 @@ class DatabaseSeeder extends Seeder
             'user_id' => $defaultInstructorUser->id,
             'section_id' => $section1->id,
         ]);
-        \App\Models\Student::create([
+        $student = \App\Models\Student::create([
             'user_id' => $defaultStudentUser->id,
             'section_id' => $section1->id,
+        ]);
+
+        \App\Models\Guardian::create([
+            'user_id' => $defaultParentUser->id,
+            'student_id' => $student->id,
         ]);
 
         \App\Models\Section::create([

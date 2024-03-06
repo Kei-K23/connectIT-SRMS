@@ -30,6 +30,10 @@ class ProfileController extends Controller
             return view('profile.instructor-edit', [
                 'user' => $request->user(),
             ]);
+        } elseif ($user->guardian) {
+            return view('profile.parent-edit', [
+                'user' => $request->user(),
+            ]);
         }
     }
 
