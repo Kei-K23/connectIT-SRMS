@@ -19,9 +19,29 @@ $path_array = explode('/', $url_path);
         <ul class="space-y-2 font-medium">
             <li>
                 <a href="{{ route('p.dashboard') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-200 group {{ in_array('dashboard', $path_array) && count(array_intersect([''], $path_array)) === 0 ? 'bg-gray-200' : '' }}">
+                    class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-200 group {{ in_array('dashboard', $path_array) && count(array_intersect(['attendance', 'report'], $path_array)) === 0 ? 'bg-gray-200' : '' }}">
                     <i class="text-xl fa-solid fa-chart-pie"></i>
                     <span class="ms-3">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('p.dashboard.attendance') }}"
+                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-200 {{array_search('attendance',$path_array) ? "
+                    bg-gray-200" : "" }}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="ms-3">
+                        Attendance
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('p.dashboard.report') }}"
+                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg  group hover:bg-gray-200 {{array_search('report',$path_array) ? "
+                    bg-gray-200" : "" }}">
+                    <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    <span class="ms-3">
+                        Reports
+                    </span>
                 </a>
             </li>
         </ul>

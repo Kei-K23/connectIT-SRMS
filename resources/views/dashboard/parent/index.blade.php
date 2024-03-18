@@ -27,6 +27,15 @@
                     </div>
                 </div>
                 <div class="p-6 overflow-hidden text-gray-900 bg-white shadow-sm sm:rounded-lg">
+                    <h2 class="text-xl font-bold">
+                        Your student name: {{ Auth::user()->guardian->student->user->name }}
+                    </h2>
+                    <p>
+                        Section: {{ Auth::user()->guardian->student->section->name }}
+                    </p>
+                    <p>
+                        {{ Auth::user()->guardian->student->section->description }}
+                    </p>
                 </div>
             </div>
         </div>

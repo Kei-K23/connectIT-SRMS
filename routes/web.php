@@ -124,6 +124,10 @@ Route::group(['middleware' => ['isInstructor']], function () {
 // parent routes
 Route::group(['middleware' => ['isParent']], function () {
     Route::get('/p/dashboard', [GuardianController::class, 'index'])->middleware(['auth', 'verified'])->name('p.dashboard');
+
+    Route::get('/p/dashboard/report', [GuardianController::class, 'getReport'])->name('p.dashboard.report');
+
+    Route::get('/p/dashboard/attendance', [GuardianController::class, 'getAttendance'])->name('p.dashboard.attendance');
 });
 
 // materials routes
