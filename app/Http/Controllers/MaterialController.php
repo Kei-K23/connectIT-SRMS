@@ -12,8 +12,8 @@ class MaterialController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'string', 'min:1'],
-            'description' => ['string', 'min:1'],
+            'name' => ['required', 'string', 'min:3'],
+            'description' => ['string'],
             'file' => ['required'],
             'section_id' => ['required'],
             'instructor_id' => ['required'],

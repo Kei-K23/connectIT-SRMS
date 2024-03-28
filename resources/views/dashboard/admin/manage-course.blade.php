@@ -213,6 +213,7 @@
 
                     // Handle form submission
                     $('#editUserModal form').submit(function(e) {
+
                         const courseId = $('#courseId').val();
                         e.currentTarget.action = `http://127.0.0.1:8000/a/dashboard/courses/update-course/${courseId}`
                     });

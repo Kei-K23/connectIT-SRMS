@@ -60,7 +60,7 @@ class AdministratorController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'min:3'],
             'phone_number' => ['required'],
             'address' => ['required'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -87,7 +87,7 @@ class AdministratorController extends Controller
     public function addCourseStore(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['required', 'string', 'max:255'],
             'duration' => ['required', 'string', 'max:255'],
             'fee' => ['required', 'numeric'],
@@ -106,7 +106,7 @@ class AdministratorController extends Controller
     public function addSectionStore(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['required', 'string', 'max:255'],
             'start_date' => ['required', 'string'],
             'end_date' => ['required', 'string'],
@@ -127,7 +127,7 @@ class AdministratorController extends Controller
     public function addSubjectStore(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['required', 'string', 'max:255'],
             'course_id' => ['required'],
             'start_time' => ['required', 'string'],
@@ -148,7 +148,7 @@ class AdministratorController extends Controller
     public function addReportStore(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['required', 'string', 'max:255'],
             'mark' => ['required', 'numeric'],
             'status' => ['required', 'string', 'max:255'],

@@ -32,7 +32,7 @@
                             <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div date-rangepicker class="flex items-center w-full">
+                        <div date-rangepicker class="flex items-center w-full text-black">
                             <div class="relative">
                                 <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
                                     <svg class="w-4 h-4 text-gray-500 " aria-hidden="true"
@@ -44,7 +44,7 @@
 
                                 <input id="start_date" name="start_date" type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
-                                    placeholder="Select date start">
+                                    required placeholder="Select date start">
                             </div>
                             <span class="mx-4 text-gray-500">to</span>
                             <div class="relative">
@@ -57,7 +57,7 @@
                                 </div>
                                 <input id="end_date" name="end_date" type="text"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
-                                    placeholder="Select date end">
+                                    required placeholder="Select date end">
                             </div>
                         </div>
 

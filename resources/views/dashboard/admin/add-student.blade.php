@@ -25,7 +25,7 @@
 
                         <div class="w-full">
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                            <input value="{{ old('email') }}" type="text" name="email" id="email"
+                            <input value="{{ old('email') }}" type="email" name="email" id="email"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 "
                                 placeholder="Student email" required>
                             @error('email')

@@ -138,17 +138,30 @@
                                             time</label>
                                         <select id="start_time" name="start_time"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                            <?php
-                                                            // Loop through hours
-                                                            for ($hour = 0; $hour < 24; $hour++) {
-                                                                for ($minute = 0; $minute < 60; $minute += 15) {
-                                                                    $hourStr = str_pad($hour, 2, '0', STR_PAD_LEFT);
-                                                                    $minuteStr = str_pad($minute, 2, '0', STR_PAD_LEFT);
+                                            <?php // Loop through hours
+// Loop through hours
+for ($hour = 0; $hour < 24; $hour++) {
+                                                for (
+                                                    $minute = 0;
+                                                    $minute < 60;
+                                                    $minute += 15
+                                                ) {
+                                                    $hourStr = str_pad(
+                                                        $hour,
+                                                        2,
+                                                        "0",
+                                                        STR_PAD_LEFT
+                                                    );
+                                                    $minuteStr = str_pad(
+                                                        $minute,
+                                                        2,
+                                                        "0",
+                                                        STR_PAD_LEFT
+                                                    );
 
-                                                                    echo "<option value='$hourStr:$minuteStr:00'>$hourStr:$minuteStr:00</option>";
-                                                                }
-                                                            }
-                                                            ?>
+                                                    echo "<option value='$hourStr:$minuteStr:00'>$hourStr:$minuteStr:00</option>";
+                                                }
+                                            } ?>
                                         </select>
                                         @error('start_time')
                                         <span class="text-red-500">{{ $message }}</span>
@@ -160,17 +173,30 @@
                                             time</label>
                                         <select id="end_time" name="end_time"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                                            <?php
-                                                            // Loop through hours
-                                                            for ($hour = 0; $hour < 24; $hour++) {
-                                                                for ($minute = 0; $minute < 60; $minute += 15) {
-                                                                    $hourStr = str_pad($hour, 2, '0', STR_PAD_LEFT);
-                                                                    $minuteStr = str_pad($minute, 2, '0', STR_PAD_LEFT);
+                                            <?php // Loop through hours
 
-                                                                    echo "<option value='$hourStr:$minuteStr:00'>$hourStr:$minuteStr:00</option>";
-                                                                }
-                                                            }
-                                                            ?>
+for ($hour = 0; $hour < 24; $hour++) {
+                                                for (
+                                                    $minute = 0;
+                                                    $minute < 60;
+                                                    $minute += 15
+                                                ) {
+                                                    $hourStr = str_pad(
+                                                        $hour,
+                                                        2,
+                                                        "0",
+                                                        STR_PAD_LEFT
+                                                    );
+                                                    $minuteStr = str_pad(
+                                                        $minute,
+                                                        2,
+                                                        "0",
+                                                        STR_PAD_LEFT
+                                                    );
+
+                                                    echo "<option value='$hourStr:$minuteStr:00'>$hourStr:$minuteStr:00</option>";
+                                                }
+                                            } ?>
                                         </select>
                                         @error('end_time')
                                         <span class="text-red-500">{{ $message }}</span>
