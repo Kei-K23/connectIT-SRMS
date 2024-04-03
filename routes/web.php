@@ -33,6 +33,14 @@ Route::group(["middleware" => ["isAdmin"]], function () {
         ->middleware(["auth", "verified"])
         ->name("a.dashboard");
 
+    Route::get("/a/dashboard/section/{sectionId}", [AdministratorController::class, "viewSection"])
+        ->middleware(["auth", "verified"])
+        ->name("a.dashboard.view-section");
+
+    Route::get("/a/dashboard/section/{sectionId}/student/{student}", [AdministratorController::class, "viewStudentAttendance"])
+        ->middleware(["auth", "verified"])
+        ->name("a.dashboard.view-student-attendance");
+
     // admin dashboard - student routes
     Route::group([], function () {
         Route::get("/a/dashboard/students/add-student", [

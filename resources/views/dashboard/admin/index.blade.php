@@ -26,6 +26,27 @@
                         @endif
                     </div>
                 </div>
+                <div class="mt-5 overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                    <div class="grid grid-cols-1 gap-8 p-6 mt-3 text-gray-900 md:grid-cols-3 lg:grid-cols-4">
+                        @foreach ($sections as $section)
+                        <div class="p-4 bg-gray-100 rounded-lg">
+                            <h3 class="font-bold">
+                                {{ $section->name }}
+                            </h3>
+                            <p>
+                                {{ $section->description ?? "---" }}
+                            </p>
+                            <ul class="my-3">
+                                <li>Start date: {{ $section->start_date }}</li>
+                                <li>End date: {{ $section->end_date }}</li>
+                                <li>Totoal Students: {{ $section->students->count() }}</li>
+                            </ul>
+                            <a href="{{ route('a.dashboard.view-section', ['sectionId' => $section->id]) }}"
+                                class="font-medium text-blue-600 hover:underline">View detail</a>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </div>
