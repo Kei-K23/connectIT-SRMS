@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         $defaultAdminUser = \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
         ]);
 
         $defaultInstructorUser = \App\Models\User::factory()->create([
@@ -27,6 +27,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'Kei',
             'email' => 'kei@example.com',
         ]);
+        $defaultStudentUser1 = \App\Models\User::factory()->create([
+            'name' => 'Kaung Kaung',
+            'email' => 'kaung@example.com',
+        ]);
+        $defaultStudentUser2 = \App\Models\User::factory()->create([
+            'name' => 'Mg Mg',
+            'email' => 'mg@example.com',
+        ]);
+        $defaultStudentUser3 = \App\Models\User::factory()->create([
+            'name' => 'Ko Ko',
+            'email' => 'ko@example.com',
+        ]);
+
         $defaultParentUser = \App\Models\User::factory()->create([
             'name' => 'Michael',
             'email' => 'michael@example.com',
@@ -78,8 +91,22 @@ class DatabaseSeeder extends Seeder
             'user_id' => $defaultInstructorUser->id,
             'section_id' => $section1->id,
         ]);
+
         $student = \App\Models\Student::create([
             'user_id' => $defaultStudentUser->id,
+            'section_id' => $section1->id,
+        ]);
+
+        \App\Models\Student::create([
+            'user_id' => $defaultStudentUser1->id,
+            'section_id' => $section1->id,
+        ]);
+        \App\Models\Student::create([
+            'user_id' => $defaultStudentUser2->id,
+            'section_id' => $section1->id,
+        ]);
+        \App\Models\Student::create([
+            'user_id' => $defaultStudentUser3->id,
             'section_id' => $section1->id,
         ]);
 
